@@ -1,9 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 export default function DashboardHeader() {
   const navigate = useNavigate();
-
   return (
     <section className="dashboard-title">
       <div className="title-group">
@@ -14,7 +12,6 @@ export default function DashboardHeader() {
         <h2>Your Notes</h2>
         <p>Create, organize, and manage your notes effortlessly.</p>
       </div>
-
       <button
         type="button"
         className="new-note-button"
