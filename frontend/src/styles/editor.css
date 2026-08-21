@@ -1,0 +1,225 @@
+
+/* Note Editor */
+
+.editor-container {
+  width: 100%;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 35px 20px;
+}
+
+/* Header */
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-sm);
+}
+
+.editor-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.3px;
+}
+
+.editor-header h2 .material-symbols-outlined {
+  color: var(--primary, #2563eb);
+  font-size: 24px;
+}
+
+.editor-header .back-button,
+.editor-header .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  color: var(--text-secondary);
+  background: var(--surface-secondary, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-sm, 8px);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.editor-header .back-button:hover,
+.editor-header .btn-secondary:hover {
+  color: var(--text-primary);
+  background: #fff;
+  border-color: var(--border-dark, #cbd5e1);
+}
+
+.editor-header .back-button .material-symbols-outlined,
+.editor-header .btn-secondary .material-symbols-outlined {
+  color: var(--text-muted);
+  font-size: 18px;
+}
+
+/* Form */
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-sm);
+}
+
+.note-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.note-form label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.note-form label .material-symbols-outlined {
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.note-form input[type="text"],
+.note-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  color: var(--text-primary);
+  background: var(--surface-secondary, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-sm, 8px);
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  outline: none;
+  transition: all var(--transition);
+}
+
+.note-form textarea {
+  min-height: 300px;
+  resize: vertical;
+}
+
+.note-form input[type="text"]:focus,
+.note-form textarea:focus {
+  background: #fff;
+  border-color: var(--primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.note-form input[type="text"]::placeholder,
+.note-form textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Actions */
+
+.editor-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light, #f1f5f9);
+}
+
+.editor-buttons button {
+  min-width: 120px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius-sm, 8px);
+  font-size: 0.88rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.editor-buttons button .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.editor-buttons .btn-save,
+.editor-buttons button[type="submit"],
+.editor-buttons .btn-primary {
+  color: #fff;
+  background: var(--primary, #2563eb);
+  border: none;
+}
+
+.editor-buttons .btn-save:hover,
+.editor-buttons button[type="submit"]:hover,
+.editor-buttons .btn-primary:hover {
+  background: var(--primary-hover, #1d4ed8);
+}
+
+.editor-buttons .btn-cancel,
+.editor-buttons button[type="button"] {
+  color: var(--text-secondary);
+  background: var(--surface-secondary, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+}
+
+.editor-buttons .btn-cancel:hover,
+.editor-buttons button[type="button"]:hover {
+  color: var(--text-primary);
+  background: #fff;
+  border-color: var(--border-dark, #cbd5e1);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .editor-container {
+    padding: 18px 14px 40px;
+  }
+
+  .editor-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .editor-header .back-button,
+  .editor-header .btn-secondary {
+    width: 100%;
+  }
+
+  .note-form {
+    padding: 20px 16px;
+  }
+
+  .editor-buttons {
+    flex-direction: column;
+  }
+
+  .editor-buttons button {
+    width: 100%;
+  }
+}
