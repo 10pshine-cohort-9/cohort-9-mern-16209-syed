@@ -14,11 +14,19 @@ export default function Login({ setAuth }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Prevent submission when browser form validation fails
+    if (!event.currentTarget.checkValidity()) {
+      return;
+    }
+
     setError("");
     setLoading(true);
 
     try {
-      const response = await loginUser({ email, password });
+      const response = await loginUser({
+        email,
+        password,
+      });
 
       // Flexible extraction in case response format varies
       const data = response.data?.data || response.data;
@@ -26,16 +34,27 @@ export default function Login({ setAuth }) {
       const user = data.user;
 
       if (!token) {
-        throw new Error("No authorization token returned from server.");
+        throw new Error(
+          "No authorization token returned from server."
+        );
       }
 
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
 
       setAuth(true);
-      navigate("/dashboard", { replace: true });
+
+      navigate("/dashboard", {
+        replace: true,
+      });
     } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
+      console.error(
+        "Login error:",
+        err.response?.data || err.message
+      );
 
       setError(
         err.response?.data?.message ||
@@ -50,26 +69,36 @@ export default function Login({ setAuth }) {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1 className="app-title">Notes Manager</h1>
+        <h1 className="app-title">
+          Notes Manager
+        </h1>
+
         <h2>Welcome Back</h2>
+
         <p className="auth-description">
           Sign in to access and manage your personal notes.
         </p>
 
-        {/* Shared Error Component */}
-        {error && <ErrorMessage message={error} />}
+        {error && (
+          <ErrorMessage message={error} />
+        )}
 
         <form onSubmit={handleSubmit}>
           {/* Email */}
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">
+              Email Address
+            </label>
+
             <input
               id="email"
               type="email"
               className="form-input"
               placeholder="you@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
               autoComplete="email"
               disabled={loading}
               required
@@ -78,14 +107,19 @@ export default function Login({ setAuth }) {
 
           {/* Password */}
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              Password
+            </label>
+
             <input
               id="password"
               type="password"
               className="form-input"
               placeholder="Enter your password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               autoComplete="current-password"
               disabled={loading}
               required
@@ -98,12 +132,17 @@ export default function Login({ setAuth }) {
             className="btn-primary"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Log In"}
+            {loading
+              ? "Logging in..."
+              : "Log In"}
           </button>
         </form>
 
         <p className="auth-footer">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+          Don't have an account?{" "}
+          <Link to="/signup">
+            Sign Up
+          </Link>
         </p>
       </div>
     </div>

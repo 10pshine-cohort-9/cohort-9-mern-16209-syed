@@ -59,7 +59,9 @@ describe("Signup Component", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText("Create Account")
+      screen.getByRole("heading", {
+        name: "Create Account",
+      })
     ).toBeInTheDocument();
 
     expect(
@@ -312,7 +314,9 @@ describe("Signup Component", () => {
     );
 
     await waitFor(() => {
-      expect(setAuth).toHaveBeenCalledWith(true);
+      expect(
+        setAuth
+      ).toHaveBeenCalledWith(true);
     });
 
     expect(
@@ -320,10 +324,14 @@ describe("Signup Component", () => {
     ).toBe("test-token");
 
     expect(
-      JSON.parse(localStorage.getItem("user"))
+      JSON.parse(
+        localStorage.getItem("user")
+      )
     ).toEqual(user);
 
-    expect(mockNavigate).toHaveBeenCalledWith(
+    expect(
+      mockNavigate
+    ).toHaveBeenCalledWith(
       "/dashboard",
       {
         replace: true,
@@ -386,7 +394,9 @@ describe("Signup Component", () => {
     );
 
     await waitFor(() => {
-      expect(setAuth).toHaveBeenCalledWith(true);
+      expect(
+        setAuth
+      ).toHaveBeenCalledWith(true);
     });
 
     expect(
@@ -394,7 +404,9 @@ describe("Signup Component", () => {
     ).toBe("nested-token");
 
     expect(
-      JSON.parse(localStorage.getItem("user"))
+      JSON.parse(
+        localStorage.getItem("user")
+      )
     ).toEqual(user);
   });
 
@@ -445,7 +457,9 @@ describe("Signup Component", () => {
     );
 
     await waitFor(() => {
-      expect(setAuth).toHaveBeenCalledWith(true);
+      expect(
+        setAuth
+      ).toHaveBeenCalledWith(true);
     });
 
     expect(
@@ -456,7 +470,9 @@ describe("Signup Component", () => {
       localStorage.getItem("user")
     ).toBeNull();
 
-    expect(mockNavigate).toHaveBeenCalledWith(
+    expect(
+      mockNavigate
+    ).toHaveBeenCalledWith(
       "/dashboard",
       {
         replace: true,
@@ -522,8 +538,13 @@ describe("Signup Component", () => {
       )
     ).toBeInTheDocument();
 
-    expect(setAuth).not.toHaveBeenCalled();
-    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(
+      setAuth
+    ).not.toHaveBeenCalled();
+
+    expect(
+      mockNavigate
+    ).not.toHaveBeenCalled();
   });
 
   test("shows normal Error message", async () => {
@@ -684,8 +705,13 @@ describe("Signup Component", () => {
       )
     ).toBeInTheDocument();
 
-    expect(setAuth).not.toHaveBeenCalled();
-    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(
+      setAuth
+    ).not.toHaveBeenCalled();
+
+    expect(
+      mockNavigate
+    ).not.toHaveBeenCalled();
   });
 
   // ---------------------------------------------
@@ -769,7 +795,9 @@ describe("Signup Component", () => {
     });
 
     await waitFor(() => {
-      expect(setAuth).toHaveBeenCalledWith(true);
+      expect(
+        setAuth
+      ).toHaveBeenCalledWith(true);
     });
   });
 
