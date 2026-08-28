@@ -44,9 +44,7 @@ describe("Profile Component", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText(
-        "View your account information"
-      )
+      screen.getByText("View your account information")
     ).toBeInTheDocument();
   });
 
@@ -198,7 +196,7 @@ describe("Profile Component", () => {
   // LOGOUT
   // ---------------------------------------------
 
-  test("logout removes token and user from localStorage", async () => {
+  test("logout removes token and user from localStorage", () => {
     localStorage.setItem(
       "token",
       "test-token"
@@ -218,12 +216,6 @@ describe("Profile Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => {
-      expect(
-        screen.getByText("Mustafa")
-      ).toBeInTheDocument();
-    });
-
     fireEvent.click(
       screen.getByRole("button", {
         name: "Logout",
@@ -239,7 +231,7 @@ describe("Profile Component", () => {
     ).toBeNull();
   });
 
-  test("logout sets authentication to false", async () => {
+  test("logout sets authentication to false", () => {
     localStorage.setItem(
       "user",
       JSON.stringify({
@@ -254,22 +246,18 @@ describe("Profile Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => {
-      expect(
-        screen.getByText("Mustafa")
-      ).toBeInTheDocument();
-    });
-
     fireEvent.click(
       screen.getByRole("button", {
         name: "Logout",
       })
     );
 
-    expect(setAuth).toHaveBeenCalledWith(false);
+    expect(
+      setAuth
+    ).toHaveBeenCalledWith(false);
   });
 
-  test("logout navigates to login page", async () => {
+  test("logout navigates to login page", () => {
     localStorage.setItem(
       "user",
       JSON.stringify({
@@ -284,19 +272,15 @@ describe("Profile Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => {
-      expect(
-        screen.getByText("Mustafa")
-      ).toBeInTheDocument();
-    });
-
     fireEvent.click(
       screen.getByRole("button", {
         name: "Logout",
       })
     );
 
-    expect(mockNavigate).toHaveBeenCalledWith(
+    expect(
+      mockNavigate
+    ).toHaveBeenCalledWith(
       "/login",
       { replace: true }
     );

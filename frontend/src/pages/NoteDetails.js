@@ -23,10 +23,26 @@ export default function NoteDetails() {
         const response = await api.get(`/notes/${id}`);
         const responseData = response.data;
 
-        const selectedNote =
-          responseData.note || responseData.data || responseData;
+        /*
+         * Handle different API response formats:
+         *
+         * 1. { note: {...} }
+         * 2. { data: {...} }
+         * 3. { _id: "...", title: "..." }
+         * 4. { note: null, data: null }
+         */
 
-        setNote(selectedNote);
+        let selectedNote;
+
+        if (responseData?.note !== undefined) {
+          selectedNote = responseData.note;
+        } else if (responseData?.data !== undefined) {
+          selectedNote = responseData.data;
+        } else {
+          selectedNote = responseData;
+        }
+
+        setNote(selectedNote || null);
       } catch (err) {
         console.error(
           "Failed to load note:",
@@ -34,8 +50,11 @@ export default function NoteDetails() {
         );
 
         setError(
-          err.response?.data?.message || "Unable to load this note."
+          err.response?.data?.message ||
+            "Unable to load this note."
         );
+
+        setNote(null);
       } finally {
         setLoading(false);
       }
@@ -61,6 +80,7 @@ export default function NoteDetails() {
       <div className="note-details-page">
         <div className="note-details-card">
           <ErrorMessage message={error} />
+
           <button
             type="button"
             className="back-button"
@@ -79,7 +99,11 @@ export default function NoteDetails() {
       <div className="note-details-page">
         <div className="note-details-card">
           <h2>Note Not Found</h2>
-          <p>The note you are looking for does not exist or was removed.</p>
+
+          <p>
+            The note you are looking for does not exist or was removed.
+          </p>
+
           <button
             type="button"
             className="back-button"
@@ -97,6 +121,7 @@ export default function NoteDetails() {
   return (
     <main className="note-details-page">
       <section className="note-details-card">
+
         {/* Top Back button */}
         <button
           type="button"
@@ -109,18 +134,26 @@ export default function NoteDetails() {
         {/* Header */}
         <div className="note-details-header">
           <div>
-            <p className="page-label">NOTE DETAILS</p>
-            <h1>{note.title || "Untitled Note"}</h1>
+            <p className="page-label">
+              NOTE DETAILS
+            </p>
+
+            <h1>
+              {note.title || "Untitled Note"}
+            </h1>
           </div>
 
           <p className="note-details-date">
             Created:{" "}
             {note.createdAt
-              ? new Date(note.createdAt).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })
+              ? new Date(note.createdAt).toLocaleDateString(
+                  "en-GB",
+                  {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  }
+                )
               : "Unknown"}
           </p>
         </div>
@@ -129,7 +162,9 @@ export default function NoteDetails() {
         <div
           className="note-full-content"
           dangerouslySetInnerHTML={{
-            __html: note.content || "<p>No content available.</p>",
+            __html:
+              note.content ||
+              "<p>No content available.</p>",
           }}
         />
 
@@ -138,7 +173,9 @@ export default function NoteDetails() {
           <button
             type="button"
             className="btn-primary"
-            onClick={() => navigate(`/editor/${noteId}`)}
+            onClick={() =>
+              navigate(`/editor/${noteId}`)
+            }
           >
             Edit Note
           </button>
@@ -146,7 +183,9 @@ export default function NoteDetails() {
           <button
             type="button"
             className="back-button"
-            onClick={() => navigate("/dashboard")}
+            onClick={() =>
+              navigate("/dashboard")
+            }
           >
             Back
           </button>
